@@ -39,6 +39,6 @@ public class LinkedStack <T>{
 	}
 	
 	public void display(){
-		top.toString();
+		System.out.println(top.toString());
 	}
 }

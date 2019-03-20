@@ -47,8 +47,8 @@ public class Cell {
 		this.column = column;
 	}
 	
-	public void visit(){
-		visited = true;
+	public void visited(boolean vis){
+		visited = vis;
 	}
 	
 	public void addNeighbor(Cell neighbor, int direction){

@@ -6,16 +6,65 @@ public class Maze {
 	private int rows;
 	private int columns;
 	private boolean pathFound;
-	private LinkedStack path;
+	private LinkedStack<Cell> path;
 	
 	public Maze(Cell[][] grid){
 		this.grid = grid;
-		rows = grid[0].length;
-		columns = grid.length;
+		rows = grid.length;
+		columns = grid[0].length;
 		entrance = grid[0][0];
 		exit = grid[rows-1][columns-1];
 		pathFound = false;
-		path = new LinkedStack();
+		path = new LinkedStack<Cell>();
+	}
+	
+	public void findPath(Cell node){
+		Cell[] neigh = node.getNeighbors();	
+		path.push(node);	
+		node.visited(true);
+		
+		if(path.peek() == exit){
+			pathFound = true;
+			return;
+		}
+		
+		while(!path.isEmpty() && !pathFound){
+			for(int i = 0; i < neigh.length; i++){
+				if(neigh[i] != null && !neigh[i].beenVisited() && !pathFound){
+						findPath(neigh[i]);
+				}
+			}
+			
+			if(!pathFound){
+				path.pop();
+				return;
+			}
+		}
+		
+		return;
+	}
+	
+	public void display(){
+		LinkedStack<Cell> temp = path;
+		int move = 1;
+		int[][] grid = new int[rows][columns];
+		for(int i = temp.size(); i > 0; i--){
+			grid[temp.peek().getRow()][temp.peek().getColumn()] = move;
+			temp.pop();
+			move++;
+		}
+		
+		for(int i = 0; i < rows; i++){
+			System.out.println("\n");
+			for(int j = 0; j < columns; j++){
+				if(grid[i][j] == 0){
+					System.out.print(" --- ");
+				}else{
+					System.out.print("  " + grid[i][j] + (grid[i][j] > 9 ? " " : "  "));
+				}
+			}
+		}
+		
 	}
 	
 	public Cell getEntrance(){
