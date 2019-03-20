@@ -21,29 +21,46 @@ public class MazeBuilder {
 				for(int k = 0; k < neigh.length; k++){
 					switch(k){
 					case 0:
-						if(j > 0){
-							neigh[k] = (Math.random()<prob) ? grid[i][j-1] : null;
+						//north
+						if(i > 0){
+							if(neigh[k] == null) neigh[k] = (Math.random()<prob) ? grid[i-1][j] : null;
+							if(neigh[k] != null){
+								neigh[k].addNeighbor(grid[i][j], k+2);
+							}
 						}else{
 							neigh[k] = null;
 						}
 						break;
 					case 1:
-						if(i < rows-1){
-							neigh[k] = (Math.random()<prob) ? grid[i+1][j] : null;
+						//east
+						if(j < columns-1){
+							if(neigh[k] == null) neigh[k] = (Math.random()<prob) ? grid[i][j+1] : null;
+							if(neigh[k] != null){
+								neigh[k].addNeighbor(grid[i][j], k+2);
+							}
 						}else{
 							neigh[k] = null;
 						}
 						break;
 					case 2:
-						if(j < columns-1){
-							neigh[k] = (Math.random()<prob) ? grid[i][j+1] : null;
+						//south
+						if(i < rows-1){
+							if(neigh[k] == null) neigh[k] = (Math.random()<prob) ? grid[i+1][j] : null;
+							if(neigh[k] != null){
+								neigh[k].addNeighbor(grid[i][j], k-2);
+							}
 						}else{
 							neigh[k] = null;
 						}
 						break;
 					case 3:
-						if(i > 0){
-							neigh[k] = (Math.random()<prob) ? grid[i-1][j] : null;
+						//west
+						if(j > 0){
+							if(neigh[k] == null) neigh[k] = (Math.random()<prob) ? grid[i][j-1] : null;
+							if(neigh[k] != null){
+								neigh[k].addNeighbor(grid[i][j], k-2);
+							}
+							
 						}else{
 							neigh[k] = null;
 						}

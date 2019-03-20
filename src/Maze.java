@@ -54,9 +54,9 @@ public class Maze {
 			move++;
 		}
 		
-		for(int i = 0; i < rows; i++){
+		for(int i = 0; i < grid.length; i++){
 			System.out.println("\n");
-			for(int j = 0; j < columns; j++){
+			for(int j = 0; j < grid[0].length; j++){
 				if(grid[i][j] == 0){
 					System.out.print(" --- ");
 				}else{
@@ -67,6 +67,18 @@ public class Maze {
 		
 	}
 	
+	public void neighbors(){
+		System.out.println("\n\n");
+		for(int i = 0; i < grid.length; i++){
+			for(int j = 0; j < grid[0].length; j++){
+				System.out.println(grid[i][j] + "'s Neighbors");
+				for(int k = 0; k < 4; k++){
+					System.out.println(k);
+					System.out.println("    " + grid[i][j].getNeighbor(k));
+				}
+			}
+		}
+	}
 	public Cell getEntrance(){
 		return entrance;
 	}

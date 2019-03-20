@@ -16,6 +16,7 @@ public class TraverseTheMaze {
 				GenericNode.reverseData(maze.getStack().top);
 				maze.getStack().display();
 				maze.display();
+				maze.neighbors();
 			}
 		}catch(Exception e){
 			JOptionPane.showMessageDialog(new JFrame(), "No path found!");
