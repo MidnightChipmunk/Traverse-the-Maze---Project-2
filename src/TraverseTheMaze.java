@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.EmptyStackException;
 
 import javax.swing.JFrame;
@@ -5,8 +6,8 @@ import javax.swing.JOptionPane;
 
 public class TraverseTheMaze {
 	@SuppressWarnings("unchecked")
-	public static void main(String[] args) {
-		Maze maze = new Maze((MazeBuilder.loadMazeRandom()));
+	public static void main(String[] args) throws FileNotFoundException {
+		Maze maze = new Maze((MazeBuilder.loadMazeFile()));
 		
 		maze.findPath(maze.getCellAt(0, 0));
 		
