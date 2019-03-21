@@ -58,4 +58,5 @@ public class Cell {
 	public void setLastOut(int last){
 		lastOut = last;
 	}
+	
 }

@@ -73,7 +73,6 @@ public class Maze {
 			for(int j = 0; j < grid[0].length; j++){
 				System.out.println(grid[i][j] + "'s Neighbors");
 				for(int k = 0; k < 4; k++){
-					System.out.println(k);
 					System.out.println("    " + grid[i][j].getNeighbor(k));
 				}
 			}
@@ -107,7 +106,7 @@ public class Maze {
 		return pathFound;
 	}
 	
-	public LinkedStack getStack(){
+	public LinkedStack<Cell> getStack(){
 		return path;
 	}
 	

@@ -13,12 +13,14 @@ public class MazeBuilder {
 		
 		grid = new Cell[rows][columns];
 		
+		//Fill the grid with cells
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
 				grid[i][j] = new Cell(i, j);
 			}
 		}
 		
+		//Add walls based on probability. The wall take into account both the current cell and the cell being blocked off, so if a wall is added to the south of this cell it will add it to the north of the south cell.
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
 				Cell[] neigh = grid[i][j].getNeighbors();
@@ -84,71 +86,75 @@ public class MazeBuilder {
 		int columns = eastWest.nextInt();
 		Cell[][] grid = new Cell[rows][columns];
 		
+		//Fill grid with Cells
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
 				grid[i][j] = new Cell(i,j);
 			}
 		}
 		
+		//Add every available neighbor to each cell
 		for(int i = 0; i < rows; i++){
 			for(int j = 0; j < columns; j++){
+				System.out.println(grid[i][j]);
 				int ns = northSouth.nextInt();
 				int ew = eastWest.nextInt();
-				
-				System.out.println("Cell: " + grid[i][j]);
 				for(int k = 0; k < 4; k++){
 					switch(k){
 					case 0:
 						//north
-						if(ns == 0 && i > 0){
+						if(i > 0){
 							grid[i][j].addNeighbor(grid[i-1][j], k);
-							grid[i-1][j].addNeighbor(grid[i][j], k+2);
 						}else{
 							grid[i][j].addNeighbor(null, k);
-							if(i > 0){
-								grid[i-1][j].addNeighbor(null, k+2);
-							}
 						}
 						break;
 					case 1:
 						//east
-						if(ew == 0 && j < columns-1){
+						if(j < columns-1){
 							grid[i][j].addNeighbor(grid[i][j+1], k);
-							grid[i][j+1].addNeighbor(grid[i][j], k+2);
 						}else{
 							grid[i][j].addNeighbor(null, k);
-							if(j < columns-1){
-								grid[i][j+1].addNeighbor(null, k+2);
-							}
 						}
 						break;
 					case 2:
 						//south
-						if(ns == 0 && i < rows-1){
+						if(i < rows-1){
 							grid[i][j].addNeighbor(grid[i+1][j], k);
-							grid[i+1][j].addNeighbor(grid[i][j], k-2);
 						}else{
 							grid[i][j].addNeighbor(null, k);
-							if(i < rows-1){
-								grid[i+1][j].addNeighbor(null, k-2);
-							}
 						}
 						break;
 					case 3:
 						//west
-						if(ew == 0 && j > 0){
+						if(j > 0){
 							grid[i][j].addNeighbor(grid[i][j-1], k);
-							grid[i][j-1].addNeighbor(grid[i][j], k-2);
 						}else{
 							grid[i][j].addNeighbor(null, k);
-							if(j > 0){
-								grid[i][j-1].addNeighbor(null, k-2);
-							}
+
 						}
 						break;
-						
 					}
-					System.out.println("    Neigh: " + grid[i][j].getNeighbor(k));
+					System.out.println("Before" + grid[i][j].getNeighbor(k));
+				}
+				
+				//Remove neighbors based on the file
+				for(int k = 0; k < 4; k++) {
+					switch(k) {
+					case 0:
+						if(ns == 1) {
+							grid[i][j].getNeighbor(2).addNeighbor(null, 0);
+							grid[i][j].addNeighbor(null, 2);
+						}
+						break;
+					case 1:
+						if(ew == 1) {
+							grid[i][j].getNeighbor(1).addNeighbor(null, 3);
+							grid[i][j].addNeighbor(null, 1);
+						}
+						break;
+					}
+					System.out.println("After: " + grid[i][j].getNeighbor(k));
 				}
 			}
 		}
