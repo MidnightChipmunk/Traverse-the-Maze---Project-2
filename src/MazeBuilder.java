@@ -49,7 +49,7 @@ public class MazeBuilder {
 						}
 						break;
 					case 2:
-						//south
+						//so5uth
 						if(i < rows-1){
 							if(neigh[k] == null) neigh[k] = (Math.random()<prob) ? grid[i+1][j] : null;
 							if(neigh[k] != null){
